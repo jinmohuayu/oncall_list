@@ -9,11 +9,10 @@ import (
 	"git.elenet.me/DA/oncall_list/entity"
 
 	"github.com/martini-contrib/render"
-	"github.com/martini-contrib/sessions"
 )
 
 // userIndex 用户列表
-func (s Server) userIndex(request *http.Request, responseWriter http.ResponseWriter, session sessions.Session, r render.Render) {
+func (s Server) userIndex(request *http.Request, responseWriter http.ResponseWriter, r render.Render) {
 
 	name := request.FormValue("name")
 	page, err := strconv.Atoi(request.FormValue("page"))

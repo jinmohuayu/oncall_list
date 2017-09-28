@@ -4,11 +4,10 @@ import (
 	"net/http"
 
 	"github.com/martini-contrib/render"
-	"github.com/martini-contrib/sessions"
 )
 
 // signInValidation 登录验证
-func (s Server) signInValidation(request *http.Request, responseWriter http.ResponseWriter, session sessions.Session, r render.Render) {
+func (s Server) signInValidation(request *http.Request, responseWriter http.ResponseWriter, r render.Render) {
 
 	// ignorePrefix := []string{staticPath, signInPath, signOutPath, errorPagePath, ldapSignInPath, suningSignInPath}
 	// for _, prefix := range ignorePrefix {
