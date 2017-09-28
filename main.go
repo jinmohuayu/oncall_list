@@ -7,6 +7,7 @@ import (
 
 	"git.elenet.me/DA/oncall_list/data/mysql"
 	"git.elenet.me/DA/oncall_list/web"
+	"git.elenet.me/DA/oncall/config"
 )
 
 func main() {
@@ -20,7 +21,7 @@ func main() {
 	}(logger)
 
 	// 读取配置
-	conf := config{}
+	conf := config.Config{}
 	err := conf.Get()
 	if err != nil {
 		log.Fatal(err)
