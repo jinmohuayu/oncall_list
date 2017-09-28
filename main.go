@@ -5,9 +5,9 @@ import (
 	"os"
 	"runtime/debug"
 
+	"git.elenet.me/DA/oncall/config"
 	"git.elenet.me/DA/oncall_list/data/mysql"
 	"git.elenet.me/DA/oncall_list/web"
-	"git.elenet.me/DA/oncall/config"
 )
 
 func main() {

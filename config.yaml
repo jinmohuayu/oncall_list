@@ -1,2 +1,2 @@
-port:9988
-mysql:"root:root123@/oncalllist"
+port: 9988
+mysql: "root:root123@/oncalllist"

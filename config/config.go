@@ -1,10 +1,10 @@
 package config
 
 import (
-	"os"
-	"io/ioutil"
 	"gopkg.in/yaml.v2"
+	"io/ioutil"
 	"log"
+	"os"
 )
 
 // config 配置
