@@ -13,7 +13,7 @@ import (
 func main() {
 
 	logger := log.New(os.Stdout, "", log.LstdFlags)
-	log.Print("oncall start")
+	log.Print("oncall_list start")
 
 	// 当程序意外退出时记录日志
 	defer func(_logger *log.Logger) {

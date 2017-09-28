@@ -108,7 +108,7 @@ func (s Server) StartAndWait() {
 
 	// 监听
 	address := fmt.Sprintf(":%d", s.config.Port)
-	s.logger.Printf("oncall web服务已启动，端口%s", address)
+	s.logger.Printf("oncall_list web服务已启动，端口%s", address)
 	cm.RunOnAddr(address)
 }
 
