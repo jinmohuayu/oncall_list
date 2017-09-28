@@ -14,6 +14,13 @@ import (
 // userIndex 用户列表
 func (s Server) userIndex(request *http.Request, responseWriter http.ResponseWriter, r render.Render) {
 
+	r.HTML(http.StatusOK, "index", nil)
+
+}
+
+// userQuery 用户查询
+func (s Server) userQuery(request *http.Request, responseWrite http.ResponseWriter, r render.Render) {
+
 	name := request.FormValue("name")
 	page, err := strconv.Atoi(request.FormValue("page"))
 	if err != nil {

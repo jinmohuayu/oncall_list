@@ -7,6 +7,7 @@ func (s Server) registerRoute(m *martini.ClassicMartini) {
 
 	// 首页
 	m.Get("/users", s.userIndex)
+	m.Get("/api/users", s.userQuery)
 	// 错误页
 	m.Get("/error", s.error)
 
