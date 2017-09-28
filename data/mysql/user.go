@@ -36,13 +36,13 @@ func (r UserRepository) Query(condition *entity.UserQueryCondition) error {
 	var parameters []interface{}
 
 	if condition.Name.Valid {
-		conditionSQL.WriteString("and instr(M.Name, ?) > 0 ")
+		conditionSQL.WriteString("and instr(U.name, ?) > 0 ")
 		parameters = append(parameters, condition.Name.String)
 	}
 
-	listSQL := bytes.NewBufferString("select M.ID, M.Name from User U where 1=1 ")
+	listSQL := bytes.NewBufferString("select U.id, U.name, U.department, U.product, U.email, U.phone_num, U.remark, U.is_delete, U.created_at, U.updated_at from user_info U where 1=1 ")
 	listSQL.WriteString(conditionSQL.String())
-	listSQL.WriteString("order by U.Name asc ")
+	listSQL.WriteString("order by U.id asc ")
 	if condition.Page.CurrentPageIndex > 0 {
 		listSQL.WriteString(fmt.Sprintf("limit %d, %d", (condition.Page.CurrentPageIndex-1)*condition.Page.RecordsPerPage, condition.Page.RecordsPerPage))
 	}
@@ -64,7 +64,7 @@ func (r UserRepository) Query(condition *entity.UserQueryCondition) error {
 		users = append(users, user)
 	}
 
-	countSQL := bytes.NewBufferString("select count(0) from User U where 1=1 ")
+	countSQL := bytes.NewBufferString("select count(0) from user_info U where 1=1 ")
 	countSQL.WriteString(conditionSQL.String())
 
 	var count int

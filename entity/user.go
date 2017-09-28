@@ -1,21 +1,32 @@
 package entity
 
-import "database/sql"
+import (
+	"database/sql"
+	"time"
+)
 
 // User 用户
 type User struct {
-	ID   int64
-	Name string
+	ID         int64
+	Name       string
+	Department string
+	Product    string
+	Email      string
+	PhoneNum   string
+	Remark     string
+	IsDelete   int8		 `json:"-"`
+	CreatedAt  time.Time `json:"-"`
+	UpdatedAt  time.Time `json:"-"`
 }
 
 // Scan 读取
 func (u *User) Scan(row *sql.Row) error {
-	return row.Scan(&u.ID, &u.Name)
+	return row.Scan(&u.ID, &u.Name, &u.Department, &u.Product, &u.Email, &u.PhoneNum, &u.Remark, &u.IsDelete, &u.CreatedAt, &u.UpdatedAt)
 }
 
 // ScanRows 读取
 func (u *User) ScanRows(rows *sql.Rows) error {
-	return rows.Scan(&u.ID, &u.Name)
+	return rows.Scan(&u.ID, &u.Name, &u.Department, &u.Product, &u.Email, &u.PhoneNum, &u.Remark, &u.IsDelete, &u.CreatedAt, &u.UpdatedAt)
 }
 
 // UserQueryCondition 用户查询条件
