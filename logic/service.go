@@ -18,6 +18,7 @@ type Service struct {
 	config         ServiceConfig
 	logger         *log.Logger
 	userRepository *mysql.UserRepository
+	tagRepository  *mysql.TagRepository
 }
 
 // NewService 新建权限服务
@@ -27,5 +28,6 @@ func NewService(config ServiceConfig, logger *log.Logger) *Service {
 		config:         config,
 		logger:         logger,
 		userRepository: mysql.NewUserRepository(config.DB),
+		tagRepository:  mysql.NewTagRepository(config.DB),
 	}
 }

@@ -14,7 +14,7 @@ type User struct {
 	Email      string
 	PhoneNum   string
 	Remark     string
-	IsDelete   int8		 `json:"-"`
+	IsDelete   int8      `json:"-"`
 	CreatedAt  time.Time `json:"-"`
 	UpdatedAt  time.Time `json:"-"`
 }
