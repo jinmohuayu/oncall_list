@@ -33,17 +33,40 @@ func (s Server) userQuery(request *http.Request, responseWrite http.ResponseWrit
 	}
 
 	condition := entity.UserQueryCondition{
-		Name: sql.NullString{String: name, Valid: strings.Trim(name, " ") != ""},
+		Name: sql.NullString{String: strings.Trim(name, " "), Valid: strings.Trim(name, " ") != ""},
 		Page: entity.Page{CurrentPageIndex: page, RecordsPerPage: pageSize},
 	}
 
 	err = s.service.QueryUser(&condition)
 	if err != nil {
-		r.JSON(http.StatusOK, errorResult(err))
+		r.JSON(http.StatusInternalServerError, errorResult(err))
 		return
 	}
 
-	users := condition.Records.([]entity.User)
+	r.JSON(http.StatusOK, successResult(condition))
+}
 
-	r.JSON(http.StatusOK, successResult(users))
+// userDetail 用户详细信息
+func (s Server) userDetail(request *http.Request, responseWriter http.ResponseWriter, r render.Render) {
+
+	id, err := strconv.ParseInt(request.FormValue("id"), 10, 64)
+	if err != nil {
+		r.JSON(http.StatusBadRequest, errorResult(err))
+		return
+	}
+
+	user, err := s.service.GetUser(id)
+	if err != nil {
+		r.JSON(http.StatusInternalServerError, errorResult(err))
+		return
+
+	}
+
+	userDetail := entity.UserDetail{
+		User:       user,
+		Privileges: entity.AllowEdit, // 权限控制，将所有登录用户设置为都可以修改
+	}
+
+	r.JSON(http.StatusOK, successResult(userDetail))
+
 }

@@ -1,14 +1,17 @@
 package entity
 
-import "database/sql"
+import (
+	"database/sql"
+	"time"
+)
 
 //Tag 标签
 type Tag struct {
 	ID        int64
 	TagName   string
-	IsDelete  int8   `json:"-"`
-	CreatedAt string `json:"-"`
-	UpdatedAt string `json:"-"`
+	IsDelete  int8      `json:"-"`
+	CreatedAt time.Time `json:"-"`
+	UpdatedAt time.Time `json:"-"`
 }
 
 //Scan 读取
@@ -25,5 +28,6 @@ func (t *Tag) ScanRows(rows *sql.Rows) error {
 type TagQueryCondition struct {
 	TagID   sql.NullString
 	TagName sql.NullString
+	UserID  sql.NullInt64
 	Page
 }

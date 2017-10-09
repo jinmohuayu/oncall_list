@@ -23,7 +23,7 @@ func NewUserRepository(db *sql.DB) *UserRepository {
 func (r UserRepository) GetByID(id int64) (*entity.User, error) {
 
 	module := new(entity.User)
-	row := r.db.QueryRow("select ID, Name from User where ID = ?", id)
+	row := r.db.QueryRow("select U.id, U.name, U.department, U.product, U.email, U.phone_num, U.remark, U.is_delete, U.created_at, U.updated_at from user_info U where id = ? ", id)
 	err := module.Scan(row)
 
 	return module, err
@@ -47,6 +47,7 @@ func (r UserRepository) Query(condition *entity.UserQueryCondition) error {
 		listSQL.WriteString(fmt.Sprintf("limit %d, %d", (condition.Page.CurrentPageIndex-1)*condition.Page.RecordsPerPage, condition.Page.RecordsPerPage))
 	}
 
+	fmt.Printf(listSQL.String())
 	rows, err := r.db.Query(listSQL.String(), parameters...)
 	if err != nil {
 		return err

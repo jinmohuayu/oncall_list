@@ -8,6 +8,7 @@ func (s Server) registerRoute(m *martini.ClassicMartini) {
 	// 用户
 	m.Get("/users", s.userIndex)
 	m.Get("/api/users", s.userQuery)
+	m.Get("/api/users/details", s.userDetail)
 
 	// 标签
 	m.Get("/api/tags", s.tagIndex)

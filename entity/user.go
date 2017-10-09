@@ -17,6 +17,7 @@ type User struct {
 	IsDelete   int8      `json:"-"`
 	CreatedAt  time.Time `json:"-"`
 	UpdatedAt  time.Time `json:"-"`
+	Tags       []Tag     `json:"tags"` //用户标签
 }
 
 // Scan 读取
@@ -33,4 +34,18 @@ func (u *User) ScanRows(rows *sql.Rows) error {
 type UserQueryCondition struct {
 	Name sql.NullString
 	Page
+}
+
+// UserPrivileges 用户特权
+type UserPrivileges int
+
+const (
+	// AllowEdit 允许编辑
+	AllowEdit UserPrivileges = iota + 1
+)
+
+// UserDetail 当前用户完整信息
+type UserDetail struct {
+	*User
+	Privileges UserPrivileges
 }
