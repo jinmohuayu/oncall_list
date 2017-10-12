@@ -1,9 +1,8 @@
 package web
 
 import (
-	"net/http"
-
 	"github.com/martini-contrib/render"
+	"net/http"
 )
 
 // signInValidation 登录验证
