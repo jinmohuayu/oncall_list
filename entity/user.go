@@ -32,7 +32,8 @@ func (u *User) ScanRows(rows *sql.Rows) error {
 
 // UserQueryCondition 用户查询条件
 type UserQueryCondition struct {
-	Name sql.NullString
+	Name   sql.NullString `json:"-"`
+	TagIds []string       `json:"-"`
 	Page
 }
 
@@ -49,3 +50,4 @@ type UserDetail struct {
 	*User
 	Privileges UserPrivileges
 }
+
