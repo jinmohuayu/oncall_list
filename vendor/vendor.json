@@ -27,6 +27,12 @@
 			"revisionTime": "2017-07-15T19:24:08Z"
 		},
 		{
+			"checksumSHA1": "KbMXyZzZ/9GPvnpqCUYIJv7b4Wg=",
+			"path": "github.com/martini-contrib/binding",
+			"revision": "05d3e151b6cf34dacac6306226a33db68459a3b5",
+			"revisionTime": "2016-07-01T17:45:19Z"
+		},
+		{
 			"checksumSHA1": "nuEoYgwp9jYIM6EnoS4YhoPtFPU=",
 			"path": "github.com/martini-contrib/render",
 			"revision": "ec18f8345a1181146728238980606fb1d6f40e8c",
