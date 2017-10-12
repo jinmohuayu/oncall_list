@@ -4,8 +4,9 @@ import (
 	"bytes"
 	"database/sql"
 	"fmt"
-
 	"git.elenet.me/DA/oncall_list/entity"
+	"log"
+	"strings"
 )
 
 // UserRepository 用户Repository
@@ -40,6 +41,10 @@ func (r UserRepository) Query(condition *entity.UserQueryCondition) error {
 		parameters = append(parameters, condition.Name.String)
 	}
 
+	if len(condition.TagIds) > 0 {
+		conditionSQL.WriteString(fmt.Sprintf("and exists(select 1 from user_tag UT where UT.user_id = U.id and UT.tag_id in (%s) group by UT.user_id having count(UT.tag_id) >= %d)", strings.Join(condition.TagIds, ","), len(condition.TagIds)))
+	}
+
 	listSQL := bytes.NewBufferString("select U.id, U.name, U.department, U.product, U.email, U.phone_num, U.remark, U.is_delete, U.created_at, U.updated_at from user_info U where 1=1 ")
 	listSQL.WriteString(conditionSQL.String())
 	listSQL.WriteString("order by U.id asc ")
@@ -47,7 +52,7 @@ func (r UserRepository) Query(condition *entity.UserQueryCondition) error {
 		listSQL.WriteString(fmt.Sprintf("limit %d, %d", (condition.Page.CurrentPageIndex-1)*condition.Page.RecordsPerPage, condition.Page.RecordsPerPage))
 	}
 
-	fmt.Printf(listSQL.String())
+	log.Print(listSQL.String())
 	rows, err := r.db.Query(listSQL.String(), parameters...)
 	if err != nil {
 		return err
