@@ -4,16 +4,14 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"git.elenet.me/DA/oncall_list/logic"
+	"github.com/go-martini/martini"
+	"github.com/martini-contrib/render"
 	"html/template"
 	"log"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"git.elenet.me/DA/oncall_list/logic"
-
-	"github.com/go-martini/martini"
-	"github.com/martini-contrib/render"
 )
 
 const (
@@ -64,14 +62,14 @@ func (s Server) StartAndWait() {
 	m.Use(martini.Recovery())
 
 	// 静态路径 /static
-	m.Use(martini.Static("web/static", martini.StaticOptions{
-		Prefix:      staticPath,
-		SkipLogging: true,
-	}))
+	//m.Use(martini.Static("web/static", martini.StaticOptions{
+	//	Prefix:      staticPath,
+	//	SkipLogging: true,
+	//}))
 
 	// 模板配置
 	m.Use(render.Renderer(render.Options{
-		Directory: "server/static/html", // Specify what path to load the templates from.
+		Directory: "oncall_web/dist", // Specify what path to load the templates from.
 		// Layout:          "layout",                   // Specify a layout template. Layouts can call {{ yield }} to render the current template.
 		Extensions:      []string{".tmpl", ".html"}, // Specify extensions to load for templates.
 		Charset:         "UTF-8",                    // Sets encoding for json and html content-types. Default is "UTF-8".
@@ -84,6 +82,8 @@ func (s Server) StartAndWait() {
 		// Specify helper function maps for templates to access.
 		// Delims: render.Delims{"{[{", "}]}"}, // Sets delimiters to the specified strings.
 	}))
+
+	m.Use(martini.Static("oncall_web/dist/static", martini.StaticOptions{Prefix: "static"}))
 
 	// 路由
 	r := martini.NewRouter()

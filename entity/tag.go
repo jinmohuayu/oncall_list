@@ -26,8 +26,9 @@ func (t *Tag) ScanRows(rows *sql.Rows) error {
 
 // TagQueryCondition 用户查询条件
 type TagQueryCondition struct {
-	TagID   sql.NullString
-	TagName sql.NullString
-	UserID  sql.NullInt64
+	TagID        sql.NullString
+	TagName      sql.NullString
+	TagNameExact sql.NullString
+	UserID       sql.NullInt64
 	Page
 }

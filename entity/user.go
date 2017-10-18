@@ -51,3 +51,7 @@ type UserDetail struct {
 	Privileges UserPrivileges
 }
 
+// UserUpdateTag 用户删除条件
+type UserUpdateTag struct {
+	UserID int64
+}
