@@ -24,7 +24,7 @@ func NewUserRepository(db *sql.DB) *UserRepository {
 func (r UserRepository) GetByID(id int64) (*entity.User, error) {
 
 	module := new(entity.User)
-	row := r.db.QueryRow("select U.id, U.name, U.department, U.product, U.email, U.phone_num, U.remark, U.is_delete, U.created_at, U.updated_at from user_info U where id = ? ", id)
+	row := r.db.QueryRow("select U.id, U.name, U.backup, U.department, U.product, U.email, U.phone_num, U.remark, U.is_delete, U.created_at, U.updated_at from user_info U where id = ? ", id)
 	err := module.Scan(row)
 
 	return module, err
@@ -45,7 +45,7 @@ func (r UserRepository) Query(condition *entity.UserQueryCondition) error {
 		conditionSQL.WriteString(fmt.Sprintf("and exists(select 1 from user_tag UT where UT.user_id = U.id and UT.tag_id in (%s) group by UT.user_id having count(UT.tag_id) >= %d)", strings.Join(condition.TagIds, ","), len(condition.TagIds)))
 	}
 
-	listSQL := bytes.NewBufferString("select U.id, U.name, U.department, U.product, U.email, U.phone_num, U.remark, U.is_delete, U.created_at, U.updated_at from user_info U where 1=1 ")
+	listSQL := bytes.NewBufferString("select U.id, U.name, U.backup, U.department, U.product, U.email, U.phone_num, U.remark, U.is_delete, U.created_at, U.updated_at from user_info U where 1=1 ")
 	listSQL.WriteString(conditionSQL.String())
 	listSQL.WriteString("order by U.id asc ")
 	if condition.Page.CurrentPageIndex > 0 {

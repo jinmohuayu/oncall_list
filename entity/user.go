@@ -9,6 +9,7 @@ import (
 type User struct {
 	ID         int64
 	Name       string
+	Backup	string
 	Department string
 	Product    string
 	Email      string
@@ -22,12 +23,12 @@ type User struct {
 
 // Scan 读取
 func (u *User) Scan(row *sql.Row) error {
-	return row.Scan(&u.ID, &u.Name, &u.Department, &u.Product, &u.Email, &u.PhoneNum, &u.Remark, &u.IsDelete, &u.CreatedAt, &u.UpdatedAt)
+	return row.Scan(&u.ID, &u.Name,  &u.Backup, &u.Department, &u.Product, &u.Email, &u.PhoneNum, &u.Remark, &u.IsDelete, &u.CreatedAt, &u.UpdatedAt)
 }
 
 // ScanRows 读取
 func (u *User) ScanRows(rows *sql.Rows) error {
-	return rows.Scan(&u.ID, &u.Name, &u.Department, &u.Product, &u.Email, &u.PhoneNum, &u.Remark, &u.IsDelete, &u.CreatedAt, &u.UpdatedAt)
+	return rows.Scan(&u.ID, &u.Name, &u.Backup, &u.Department, &u.Product, &u.Email, &u.PhoneNum, &u.Remark, &u.IsDelete, &u.CreatedAt, &u.UpdatedAt)
 }
 
 // UserQueryCondition 用户查询条件
